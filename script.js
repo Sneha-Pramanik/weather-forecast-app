@@ -392,12 +392,4 @@ async function loadDefaultCity() {
     } catch (error) {
         console.log('Failed to load default city');
     }
-}// Added for commit 4 
-// Added for commit 5 
-// Added for commit 6 
-// Added for commit 7 
-// Added for commit 8 
-// Added for commit 9 
-// Added for commit 10 
-// Added for commit 11 
-// Added for commit 12 
+}
