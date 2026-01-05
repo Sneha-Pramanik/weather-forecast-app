@@ -1,0 +1,70 @@
+/* Custom styles for weather app */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background 0.5s ease;
+}
+
+/* Weather backgrounds */
+.sunny {
+    background: linear-gradient(to bottom right, #FFD700, #FFA500);
+}
+
+.cloudy {
+    background: linear-gradient(to bottom right, #B0C4DE, #778899);
+}
+
+.rainy {
+    background: linear-gradient(to bottom right, #4682B4, #5F9EA0);
+}
+
+.clear {
+    background: linear-gradient(to bottom right, #87CEEB, #00BFFF);
+}
+
+.snow {
+    background: linear-gradient(to bottom right, #F0F8FF, #AFEEEE);
+}
+
+/* Forecast cards */
+.forecast-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.forecast-card:hover {
+    transform: translateY(-5px);
+    border-color: #3B82F6;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    #currentTemp {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 375px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .forecast-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Animation for weather icon */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.weather-icon {
+    animation: fadeIn 0.5s ease;
+}

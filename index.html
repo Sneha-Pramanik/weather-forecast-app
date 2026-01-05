@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen p-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Weather Forecast</h1>
+            <p class="text-gray-600">Check weather for any city in the world</p>
+        </header>
+
+        <!-- Search Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+                <div class="flex-1 relative">
+                    <div class="relative">
+                        <input type="text" 
+                               id="cityInput" 
+                               placeholder="Enter city name (e.g., London, New York, Tokyo)"
+                               class="w-full p-4 pl-12 border-2 border-gray-200 rounded-xl focus:border-blue-400 focus:outline-none">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- Recent Searches Dropdown -->
+                    <div id="recentSearches" class="hidden absolute w-full bg-white border border-gray-200 rounded-xl shadow-lg mt-2 z-10">
+                        <div class="p-3 border-b">
+                            <p class="text-sm text-gray-500 font-medium">Recent Searches</p>
+                        </div>
+                        <div id="recentList" class="max-h-48 overflow-y-auto">
+                            <!-- Recent cities will appear here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button id="searchBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-4 rounded-xl transition-all flex items-center gap-2">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button id="locationBtn" class="bg-green-500 hover:bg-green-600 text-white font-medium px-6 py-4 rounded-xl transition-all flex items-center gap-2">
+                        <i class="fas fa-location-arrow"></i> Current
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Temperature Unit -->
+            <div class="flex items-center justify-between">
+                <p class="text-gray-600">Temperature Unit:</p>
+                <div class="flex bg-gray-100 rounded-full p-1">
+                    <button id="celsiusBtn" class="px-5 py-2 rounded-full bg-blue-500 text-white font-medium">°C</button>
+                    <button id="fahrenheitBtn" class="px-5 py-2 rounded-full text-gray-700 font-medium">°F</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error and Alert Messages -->
+        <div id="errorMessage" class="hidden bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded-r-lg">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
+                <p id="errorText" class="text-red-700"></p>
+            </div>
+        </div>
+        
+        <div id="alertMessage" class="hidden bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4 rounded-r-lg">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-triangle text-yellow-500 mr-3"></i>
+                <p id="alertText" class="text-yellow-700"></p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Current Weather -->
+            <div class="lg:col-span-2">
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-lg p-6 text-white">
+                    <h2 class="text-2xl font-bold mb-4">Today's Weather</h2>
+                    
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+                        <div class="mb-6 md:mb-0">
+                            <div class="flex items-center gap-3 mb-3">
+                                <h3 id="currentCity" class="text-3xl font-bold">--</h3>
+                                <span id="currentDate" class="text-gray-200">--</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-4">
+                                <div id="weatherIcon" class="text-6xl">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline">
+                                        <span id="currentTemp" class="text-5xl font-bold">--</span>
+                                        <span class="text-2xl">°C</span>
+                                    </div>
+                                    <p id="weatherDesc" class="text-xl capitalize mt-1">--</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-5">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-wind mr-3"></i>
+                                        <span>Wind Speed</span>
+                                    </div>
+                                    <span id="windSpeed" class="font-bold">-- m/s</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-tint mr-3"></i>
+                                        <span>Humidity</span>
+                                    </div>
+                                    <span id="humidity" class="font-bold">--%</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-temperature-high mr-3"></i>
+                                        <span>Feels Like</span>
+                                    </div>
+                                    <span id="feelsLike" class="font-bold">--°C</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-compress-alt mr-3"></i>
+                                        <span>Pressure</span>
+                                    </div>
+                                    <span id="pressure" class="font-bold">-- hPa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Current Location -->
+            <div class="bg-gradient-to-r from-green-500 to-teal-600 rounded-2xl shadow-lg p-6 text-white">
+                <h2 class="text-2xl font-bold mb-4">Current Location</h2>
+                
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-map-marker-alt text-2xl mr-3"></i>
+                    <div>
+                        <p id="currentLocation" class="text-lg">Allow location access</p>
+                        <p class="text-sm opacity-80">Your current city</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <span>Temperature</span>
+                        <span id="currentLocTemp" class="font-bold text-xl">--°C</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Condition</span>
+                        <span id="currentLocCondition" class="font-bold">--</span>
+                    </div>
+                </div>
+                
+                <button id="updateLocationBtn" class="w-full mt-4 bg-white text-green-600 font-medium py-3 rounded-xl hover:bg-gray-100 transition-all">
+                    <i class="fas fa-sync-alt mr-2"></i> Update Location
+                </button>
+            </div>
+        </div>
+
+        <!-- 5-Day Forecast -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">5-Day Forecast</h2>
+            
+            <div id="forecastContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                <!-- Forecast cards will be generated here -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 text-sm pt-6 border-t border-gray-200">
+            <p>Weather data provided by <a href="https://openweathermap.org" class="text-blue-500 hover:underline">OpenWeatherMap</a></p>
+            <p class="mt-1">Made for Weather Forecast Project</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
