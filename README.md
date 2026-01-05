@@ -92,4 +92,5 @@ Icons from Font Awesome
 
 Styling with Tailwind CSS
 
-Made by Sneha Pramanik for Weather Forecast Project
+Made by Sneha Pramanik for Weather Forecast Project  
+"HTML Structure: Used Tailwind CSS for responsive design"  
