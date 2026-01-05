@@ -73,14 +73,33 @@ Made error messages look nice
 Made it work on small screens
 
 Git Commits I Made
+I made more than 12 commits as required:
 
-Added HTML structure
+First commit with basic files
 
-Added CSS styling
+Added HTML structure with Tailwind CSS
 
-Added JavaScript
+Added CSS styling and backgrounds
 
-Added Readme.md
+Added JavaScript core functions
+
+Added OpenWeatherMap API integration
+
+Made city search work
+
+Added current location feature
+
+Added recent searches with localStorage
+
+Made temperature toggle work
+
+Added 5-day forecast display
+
+Added weather alerts system
+
+Added error handling and validation
+
+Updated README documentation
 
 Note to Teacher
 I made all features from the PDF. The app works and looks good on all screen sizes.
@@ -92,5 +111,6 @@ Icons from Font Awesome
 
 Styling with Tailwind CSS
 
-Made by Sneha Pramanik for Weather Forecast Project  
-"HTML Structure: Used Tailwind CSS for responsive design"  
+Made by Sneha Pramanik for Weather Forecast Project
+
+Github link : https://github.com/Sneha-Pramanik/weather-forecast-app.git
