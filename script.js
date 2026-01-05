@@ -392,4 +392,4 @@ async function loadDefaultCity() {
     } catch (error) {
         console.log('Failed to load default city');
     }
-}
+}// Added for commit 4 
